@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  Color _backgroundColor = Colors.white;
 
   void _incrementCounter() {
     setState(() {
@@ -45,9 +47,17 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _changeColor() {
+    setState(() {
+      _backgroundColor =
+          Colors.primaries[Random().nextInt(Colors.primaries.length)];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: _backgroundColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
@@ -92,6 +102,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: const Icon(Icons.remove),
               ),
             ],
+          ),
+          const SizedBox(height: 20),
+          FloatingActionButton.extended(
+            onPressed: _changeColor,
+            label: const Text('Mudar Cor'),
+            icon: const Icon(Icons.color_lens),
           ),
         ],
       ),
